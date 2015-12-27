@@ -1990,6 +1990,10 @@ public abstract class ExtendableListView extends AbsListView {
         }
     }
 
+    public void forceScroll(int distanceFromTopInPx, boolean useFling) {
+        mFlingRunnable.forceScroll(distanceFromTopInPx, useFling);
+    }
+
     // //////////////////////////////////////////////////////////////////////////////////////////
     // FLING RUNNABLE
     //
@@ -2012,6 +2016,15 @@ public abstract class ExtendableListView extends AbsListView {
 
         FlingRunnable() {
             mScroller = new Scroller(getContext());
+        }
+
+        public void forceScroll(int distanceFromTopInPx, boolean useFling) {
+            if (useFling) {
+                start(0);
+            }
+            else {
+                startScroll(distanceFromTopInPx, 0);
+            }
         }
 
         void start(int initialVelocity) {
